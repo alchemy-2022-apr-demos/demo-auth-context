@@ -78,6 +78,7 @@ npm i -D postcss-nested@latest
 npm i -D prop-types@latest
 npm i -D style-loader@latest
 npm i -D url-loader@latest
+npm i -D process@latest
 ```
 
 ## Router
