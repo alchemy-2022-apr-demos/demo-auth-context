@@ -1,20 +1,15 @@
-import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLists } from '../../state/ListsContext.jsx';
 import AddForm from '../Forms/AddForm.jsx';
 import styles from './Lists.css';
-import { Context as ReducerContext } from '../../reducer-provider.jsx'
-import { addListAction, getListsAction } from '../../actions/lists.js';
 
 export function Lists() {
-  const { state, dispatch } = useContext(ReducerContext);
+  const { lists, addList } = useLists();
 
-  useEffect(() => {
-    getListsAction(dispatch);
-  }, []);
+  if (!lists) return null;
 
-  const handleAdd = (name) => {
-    addListAction(dispatch, name)
+  const handleAdd = async (name) => {
+    await addList({ name });
   };
 
   return (
@@ -24,7 +19,7 @@ export function Lists() {
       <AddForm onAdd={handleAdd} placeholder="add a new list..." />
 
       <ul>
-        {state.lists.map((list) => {
+        {lists.map((list) => {
           return (
             <li key={list.id}>
               <Link to={`${list.id}`}>{list.name}</Link>
